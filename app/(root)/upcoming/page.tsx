@@ -23,7 +23,7 @@ const UpcomingMeetings = async () => {
     let hours = dte.getHours() > 9 ? dte.getHours() : '0' + dte.getHours()
     let minutes = dte.getMinutes() > 9 ? dte.getMinutes() : '0' + dte.getMinutes()
     return (
-      <div className={`min-h-28 ${meet.platform === 'zoom'? 'bg-blue-700' : 'bg-green-700'} p-4 flex flex-col gap-4 rounded-3xl w-full`}>
+      <div key={meet.title} className={`min-h-28 ${meet.platform === 'zoom'? 'bg-blue-700' : 'bg-green-700'} p-4 flex flex-col gap-4 rounded-3xl w-full`}>
         <h1>{meet.title}</h1>
         <h2>{dte.toDateString() + ', ' + hours + ':' + minutes}</h2>
          <UpcomingMeetingDetails oldMeeting={meet}/>
@@ -35,7 +35,7 @@ const UpcomingMeetings = async () => {
     let hours = dte.getHours() > 9 ? dte.getHours() : '0' + dte.getHours()
     let minutes = dte.getMinutes() > 9 ? dte.getMinutes() : '0' + dte.getMinutes()
     return (
-      <div className="min-h-28 bg-green-700 p-4 flex flex-col gap-4 rounded-3xl w-full">
+      <div key={meet.title} className="min-h-28 bg-green-700 p-4 flex flex-col gap-4 rounded-3xl w-full">
         <h1>{meet.title}</h1>
         <h2>{dte.toDateString() + ', ' + hours + ':' + minutes}</h2>
          <UpcomingMeetingDetails oldMeeting={meet}/>
@@ -47,7 +47,7 @@ const UpcomingMeetings = async () => {
     let hours = dte.getHours() > 9 ? dte.getHours() : '0' + dte.getHours()
     let minutes = dte.getMinutes() > 9 ? dte.getMinutes() : '0' + dte.getMinutes()
     return (
-      <div className="min-h-28 bg-blue-700 p-4 flex flex-col gap-4 rounded-3xl w-full">
+      <div key={meet.title} className="min-h-28 bg-blue-700 p-4 flex flex-col gap-4 rounded-3xl w-full">
         <h1>{meet.title}</h1>
         <h2>{dte.toDateString() + ', ' + hours + ':' + minutes}</h2>
          <UpcomingMeetingDetails oldMeeting={meet}/>

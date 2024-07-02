@@ -9,7 +9,7 @@ const GroupCards = ({groups, email}: any) => {
     <div className="w-full px-8 py-2 my-2 overflow-x-hidden">
         {
             groups.map((group: any) => (
-                <GroupCard group={group}/>
+                <GroupCard key={group.groupName} group={group}/>
             ))
         }
     </div>
