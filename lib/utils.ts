@@ -19,21 +19,11 @@ export const handleError = (error: unknown) => {
   }
 };
 
-export const testAPI = async () => {
-  const response = await fetch('http://localhost:4000/api/create-meeting-with-meet', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  console.log(response)
-}
-
 export const createMeeting = async (title: string, people: string, platform: string, startDate: number, duration: string, gtoken: string, ztoken: string) => {
 
   let response;
   if (platform === "meet") {
-    response = await fetch('/api/create-meeting'/* 'http://localhost:4000/api/create-meeting-with-meet' */, {
+    response = await fetch('/api/create-meeting', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -46,7 +36,7 @@ export const createMeeting = async (title: string, people: string, platform: str
       window.open(resdata.link, '_blank');
     }
   } else {
-    response = await fetch('/api/create-zoom'/* 'http://localhost:4000/api/create-meeting-with-meet' */, {
+    response = await fetch('/api/create-zoom', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

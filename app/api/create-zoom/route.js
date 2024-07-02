@@ -5,7 +5,7 @@ export async function POST(req, res) {
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    'http://localhost:3000/api/auth/callback/google'
+    process.env.GOOGLE_CALLBACK_URL
   )
   const data = await req.json();
   console.log(data)
@@ -105,7 +105,7 @@ export async function PUT(req, res) {
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    'http://localhost:3000/api/auth/callback/google'
+    process.env.GOOGLE_CALLBACK_URL
   )
   const data = await req.json();
   console.log("data in api:")
@@ -207,7 +207,7 @@ export async function DELETE(req, res) {
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    'http://localhost:3000/api/auth/callback/google'
+    process.env.GOOGLE_CALLBACK_URL
   )
   console.log("Inside deletion api")
   const data = await req.json();
