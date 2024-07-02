@@ -1,0 +1,20 @@
+import React from 'react'
+
+const PrivacyPolicy = () => {
+    return (
+        <main className="absolute inset-0 -z-10 h-full w-full items-center [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)] overflow-hidden">
+            <div className="flex flex-col w-full items-center justify-center">
+                <p className='text-left'>Go back</p>
+            <div className="flex min-h-screen flex-col items-center justify-between p-24 w-full max-w-4xl scroll-auto mx-2">
+                <p className='my-2 text-justify'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac molestie mi. Maecenas semper commodo nunc quis lobortis. Praesent porta molestie enim sed sagittis. Nullam a quam ut tortor congue eleifend quis at risus. Fusce consequat leo pulvinar iaculis dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec vel fermentum mauris. Nullam tempor massa vel ligula vulputate, ac blandit neque aliquet. Nullam iaculis nisi a dictum facilisis. Phasellus ac ante nec neque viverra eleifend. Morbi ac elit odio.</p>
+                <p className='my-2 text-justify'>Vivamus vehicula dignissim suscipit. Maecenas eget eleifend diam, at hendrerit ipsum. Ut bibendum, orci id commodo ultricies, leo libero mollis diam, sit amet interdum orci mauris id tortor. Donec egestas odio eget enim ullamcorper, sit amet tincidunt mauris iaculis. Fusce luctus, enim lacinia viverra porttitor, dui orci tempor nunc, rhoncus cursus velit tellus sit amet tellus. Vestibulum non rutrum neque. Fusce euismod neque at dui condimentum elementum. Curabitur egestas et eros sagittis posuere. Phasellus eget placerat est. Praesent scelerisque vestibulum blandit. Morbi feugiat in quam eu sagittis. Ut blandit malesuada lorem eu suscipit. Sed molestie accumsan sem, vitae consectetur urna vulputate ut. Sed id dui iaculis ex consectetur tempus a eu orci. Proin fermentum ultrices venenatis. Praesent pulvinar felis vel molestie euismod.</p>
+                <p className='my-2 text-justify'>Mauris vel nulla libero. Fusce congue nunc elit, a sodales massa egestas in. Ut hendrerit, quam at vehicula mollis, arcu arcu varius nunc, lacinia maximus eros felis eget augue. Donec quam ipsum, placerat eu ligula et, ultrices faucibus lectus. Nam interdum laoreet odio. Vestibulum in neque a mi molestie volutpat quis at elit. Fusce sed tempor est. Maecenas nibh nibh, ultrices nec pellentesque cursus, cursus vel quam. Nulla maximus viverra urna tincidunt tincidunt. Donec et enim venenatis, faucibus ante sit amet, dictum ligula.</p>
+                <p className='my-2 text-justify'>Ut quis hendrerit massa. Aliquam pharetra a justo et bibendum. Quisque suscipit libero et arcu scelerisque, ut dapibus urna tristique. Nulla facilisi. Etiam fringilla quam velit, in consectetur tortor tempor non. Pellentesque ullamcorper mauris diam, nec tincidunt leo commodo et. Morbi eget leo in urna ultrices posuere. Nullam hendrerit, elit nec malesuada posuere, elit dolor ultrices metus, in dapibus velit lorem ac velit. Sed vitae est a purus consectetur volutpat ut ut odio. Nullam ullamcorper tellus diam, a convallis ligula porttitor vitae. Donec vulputate dolor in consequat malesuada.</p>
+                <p className='my-2 text-justify'>Nullam tristique sem aliquam finibus volutpat. Duis ac accumsan diam, eget ullamcorper lectus. Pellentesque viverra congue lorem, eget posuere urna lobortis nec. Fusce tincidunt cursus vehicula. Donec rutrum venenatis erat ut dapibus. Fusce suscipit massa quis lorem mollis, viverra imperdiet dolor consequat. Duis faucibus venenatis libero, nec blandit quam venenatis ac. Ut non blandit nibh. Suspendisse rhoncus lorem at urna rutrum ultricies. Nam quis lacus in sem aliquet placerat a ut leo. Fusce at luctus ex, eget facilisis lectus. Nullam sem diam, hendrerit quis faucibus sed, imperdiet at augue. Morbi nec aliquet mi. Proin eu quam ut lectus pretium imperdiet. Donec quis lacinia turpis, vel egestas dolor.</p>
+            </div>
+            </div>
+        </main>
+    )
+}
+
+export default PrivacyPolicy
