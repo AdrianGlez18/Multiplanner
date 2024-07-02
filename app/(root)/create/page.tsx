@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
 import CreateMeetingList from "@/components/shared/CreateMeetingList"
 import { getGroupsByUser } from "@/lib/actions/group.actions";
 import { getServerSession } from "next-auth/next";

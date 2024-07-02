@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import Bars from '@/components/graphs/Bars';
 import CircleGraph from '@/components/graphs/CircleGraph';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
 import { redirect } from 'next/navigation';
 import { getAnalytics, initializeAnalytics } from '@/lib/actions/analytics.actions';
 import { Button } from '@/components/ui/button';
+
 
 const Analytics = async () => {
 

@@ -1,6 +1,6 @@
 import GroupCards from "@/components/shared/GroupCards";
 import { useSession } from "next-auth/react";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
 import { getServerSession } from "next-auth/next"
 import { getGroupsByUser } from "@/lib/actions/group.actions";
 import { redirect } from "next/navigation";

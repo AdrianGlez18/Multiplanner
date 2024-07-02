@@ -2,7 +2,7 @@
 import MobileNav from '@/components/shared/MobileNav'
 import Sidebar from '@/components/shared/Sidebar'
 import { Toaster } from '@/components/ui/toaster'
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from '../api/auth/[...nextauth]/authOptions';
 import { getServerSession } from "next-auth/next"
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {

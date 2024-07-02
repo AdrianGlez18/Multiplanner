@@ -1,10 +1,18 @@
-import NextAuth from 'next-auth'
+/* import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import ZoomProvider from 'next-auth/providers/zoom'
 import type { NextAuthOptions } from "next-auth"
-import { saveTokensToDatabase } from '@/lib/actions/user.actions'
+import { saveTokensToDatabase } from '@/lib/actions/user.actions' */
 
-export const authOptions = {
+
+import NextAuth from 'next-auth';
+import { authOptions } from './authOptions';
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };
+
+/* export default NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -24,12 +32,6 @@ export const authOptions = {
     })
   ],
   callbacks: {
-    /* async signIn({user, account, profile}) {
-      const email = user.email
-      const localUsername = await getLocalUsername(email)
-      user.localUsername = localUsername
-      return true
-    }, */
     async session({ session, token }: any) {
       session.user.id = token.id;
 
@@ -61,18 +63,16 @@ export const authOptions = {
           token.googleAccessToken = currentDatabaseUser.googleAccessToken;
           token.googleRefreshToken = currentDatabaseUser.googleRefreshToken;
         }
-        /* token.accessToken = account.access_token;
-        token.refreshToken = account.refresh_token; */
         token.id = user.id;
       }
       return token;
     },
   }
-}
+}) */
 
-const authHandler = NextAuth(authOptions)
+/* const authHandler = NextAuth(authOptions)
 export { authHandler as GET, authHandler as POST };
-export default authHandler;
+export default authHandler; */
 
 /* export const authOptions: NextAuthOptions = {
   providers: [

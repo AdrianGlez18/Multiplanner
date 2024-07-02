@@ -2,7 +2,7 @@
 
 import { getAllMeetings } from '@/lib/actions/meeting.actions';
 import { useSession } from 'next-auth/react';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
 import { getServerSession } from 'next-auth/next';
 import React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
