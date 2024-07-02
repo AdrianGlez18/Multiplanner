@@ -23,7 +23,7 @@ export default function Home() {
               </p>
               <Button onClick={() => signIn('google')} className="bg-green-500 max-w-40 w-full">Sign In with Google</Button>
               <p className="text-center text-lg">
-                You can also continue using only Zoom, but meetings won't be on Google Calendar.
+                You can also continue using only Zoom, but meetings will not be on Google Calendar.
               </p>
             </div>
             ) : ''}
