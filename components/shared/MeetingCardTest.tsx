@@ -53,6 +53,7 @@ import {
 } from "@/components/ui/popover"
 import { CustomField } from "./CustomField"
 import { useSession } from "next-auth/react"
+import { redirect } from "next/navigation"
 
 export const formSchema = z.object({
   title: z.string(),
@@ -83,6 +84,9 @@ const MeetingCard = ({ bg, icon, title, cardType, content, groups }: { bg: strin
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
+    if(!session) {
+      redirect('/')
+    }
 
     try {
       /*  console.log('****************************************************')

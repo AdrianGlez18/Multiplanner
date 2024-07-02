@@ -4,7 +4,7 @@ import { useRef, useEffect } from "react"
 import { Chart, BarController, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js"
 
 const BarsGraph = ({data}: any) => {
-    const chartRref = useRef(null);
+    const chartRref: any = useRef(null);
     useEffect(() => {
         Chart.register(BarController, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
         if (chartRref.current) {

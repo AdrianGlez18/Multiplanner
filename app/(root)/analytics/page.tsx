@@ -15,10 +15,9 @@ const Analytics = async () => {
     redirect('/');
   }
 
-  console.log("Debugging Analyticas: ")
-  console.log("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV")
+  const userEmail: string = session.user?.email!;
 
-  let currentAnalytics = await getAnalytics(session.user?.email);
+  let currentAnalytics = await getAnalytics(userEmail);
   console.log(currentAnalytics)
 
   const totalMeetings = currentAnalytics.zoomScheduled + currentAnalytics.meetScheduled;
@@ -26,9 +25,9 @@ const Analytics = async () => {
 
   if (!currentAnalytics) {
     console.log("!current")
-    console.log(session.user.email)
-    await initializeAnalytics(session.user.email);
-    currentAnalytics = await getAnalytics(session.user?.email);
+    console.log(userEmail)
+    await initializeAnalytics(userEmail);
+    currentAnalytics = await getAnalytics(userEmail);
     console.log(currentAnalytics)
   }
 

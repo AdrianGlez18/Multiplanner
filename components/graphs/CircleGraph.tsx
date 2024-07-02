@@ -4,9 +4,8 @@ import { useRef, useEffect } from "react"
 import { Chart, Tooltip, Legend, DoughnutController, ArcElement } from "chart.js"
 
 const CircleGraph = ({data}: any) => {
-    console.log("data")
-    console.log(data)
-    const chartRref = useRef(null);
+
+    const chartRref: any = useRef(null);
     useEffect(() => {
         Chart.register(DoughnutController, ArcElement, Tooltip, Legend);
         if (chartRref.current) {
