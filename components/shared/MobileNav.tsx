@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/sheet"
 import Link from "next/link"
 import Image from "next/image"
-//import { SignedIn, UserButton } from "@clerk/nextjs"
 import { navLinks } from "@/constants"
 import { usePathname } from "next/navigation"
 

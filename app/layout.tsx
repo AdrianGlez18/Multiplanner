@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
 import { LangProvider } from "@/components/hooks/useLang";
 import { ThemeProvider } from "@/components/shared/Theme-provider";
 import UserSessionProvider from "@/components/hooks/SessionProvider";
@@ -41,9 +40,3 @@ export default function RootLayout({
 
   );
 }
-
-
-{/* <ClerkProvider appearance={{
-      variables: { colorPrimary: '#9f7aea' }
-    }}> */}
-{/* </ClerkProvider> */ }
