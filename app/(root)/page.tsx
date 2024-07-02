@@ -3,7 +3,6 @@
 import ThemeButton from "@/components/shared/ThemeButton";
 import TypingText from "@/components/shared/TypingText";
 import { Button } from "@/components/ui/button";
-import { testAPI } from "@/lib/utils";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
