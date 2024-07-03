@@ -1,17 +1,15 @@
-"use client"
-
 import { z } from "zod"
 import MeetingCardTest from './MeetingCardTest'
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
+import { getGroupsByUser } from "@/lib/actions/group.actions";
+import { getServerSession } from "next-auth/next";
+import { redirect } from "next/navigation";
 
-export const formSchema = z.object({
-    title: z.string(),
-    date: z.string().optional(),
-    duration: z.string(),
-    users: z.string(),
-    platform: z.string().optional(),
-})
 
-const CreateMeetingList = (groups : any) => {
+const CreateMeetingList = async () => {
+    const session = await getServerSession(authOptions)
+    if (!session) redirect("/");
+    let groups = await getGroupsByUser(session?.user?.email!)
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-around items-center gap-16 w-full m-4 p-4 lg:px-10">
             <MeetingCardTest title={"Start meeting"} content='Create a meeting that starts now' icon='/icons/add-meeting.svg' cardType="now" bg='bg-blue-500' groups={groups}/>

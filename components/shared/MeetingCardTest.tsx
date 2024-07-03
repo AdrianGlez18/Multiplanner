@@ -1,11 +1,10 @@
 "use client"
-//adrianglezhdez18@gmail.com
+
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -14,26 +13,24 @@ import {
 import { toast } from "../ui/use-toast"
 
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import {
+/* import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select" */
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   Tabs,
@@ -41,19 +38,13 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
 
-import { cn, createMeeting, parseInputDateToMiliseconds } from "@/lib/utils"
-import { Calendar } from "@/components/ui/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+
+import { cn, createMeeting, filterGroupByName, parseInputDateToMiliseconds } from "@/lib/utils"
 import { CustomField } from "./CustomField"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
+import Select from 'react-select';
 
 export const formSchema = z.object({
   title: z.string(),
@@ -67,7 +58,21 @@ const MeetingCard = ({ bg, icon, title, cardType, content, groups }: { bg: strin
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [platform, setPlatform] = useState("zoom")
   const { data: session } = useSession();
-  console.log(groups)
+
+  /* let selectorItems: any;
+  if (cardType === 'template') {
+    selectorItems = useMemo(() => {
+      return groups.map((item: any) => (
+        <SelectItem key={item._id} value={item.groupName}>{item.groupName}</SelectItem>
+      ));
+    }, [groups]);
+    console.log("MyComponent render");
+  } */
+  const options = groups.map((item: any) => ({
+    value: item.groupName,
+    label: item.groupName
+  }));
+
 
   const initialValues = {
     title: "",
@@ -84,29 +89,28 @@ const MeetingCard = ({ bg, icon, title, cardType, content, groups }: { bg: strin
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
-    if(!session) {
+    if (!session) {
       redirect('/')
     }
 
     try {
-      /*  console.log('****************************************************')
-       console.log(platform)
-       console.log(session) */
+console.log(groups)
       let startDate = Date.now();
       if (values.date !== undefined) {
         console.log("Using date")
         startDate = parseInputDateToMiliseconds(values.date);
       }
       if (platform === 'zoom') {
-        //console.log("Platform is zoom. Calling...")
-        const attendees = session.user?.email?.concat(',', values.users)
-        //console.log("session: #############")
-        //console.log(session)
-        //const result = await createMeeting(values.title, values.users, 'zoom', session!.zoomRefreshToken!)
+        let attendees = session.user?.email?.concat(',', values.users)
+        if(cardType === 'template') {
+          attendees = session.user?.email?.concat(',', filterGroupByName(groups, values.users))
+        }
         const result = await createMeeting(values.title, attendees!, 'zoom', startDate, values.duration, session!.googleRefreshToken!, session!.zoomAccessToken!)
       } else {
-        //console.log("Platform is meet. Calling...")
-        const attendees = session.user?.email?.concat(',', values.users)
+        let attendees = session.user?.email?.concat(',', values.users)
+        if(cardType === 'template') {
+          attendees = session.user?.email?.concat(',', filterGroupByName(groups, values.users))
+        }
         const result = await createMeeting(values.title, attendees!, 'meet', startDate, values.duration, session!.googleRefreshToken!, session!.zoomAccessToken!)
       }
 
@@ -162,84 +166,89 @@ const MeetingCard = ({ bg, icon, title, cardType, content, groups }: { bg: strin
                   Meet
                 </TabsTrigger>
               </TabsList>
-
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <CustomField
-                    control={form.control}
-                    name="title"
-                    formLabel="Meeting title"
-                    className="grid grid-cols-4 col-span-4 items-center gap-4"
-                    render={({ field }) => <Input id="title" {...field} className="col-span-3" />}
-                  />
-
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <CustomField
-                    control={form.control}
-                    name="duration"
-                    formLabel="Duration (minutes)"
-                    className="grid grid-cols-4 col-span-4 items-center gap-4"
-                    render={({ field }) => <Input id="title" {...field} className="col-span-3" placeholder="Duration in minutes..." />}
-                  />
-                </div>
-                {
-                  cardType === 'template' ? (
-
-                      <FormField
-                        control={form.control}
-                        name="users"
-                        render={({ field }) => (
-                          <FormItem className="grid grid-cols-4 items-center gap-4">
-                            <FormLabel>Email</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Select a verified email to display" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {
-                                  groups.groups.map((item: any) => {
-                                    <SelectItem value={item.groupName}>Test</SelectItem>
-                                  })
-                                }
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                  ) : (
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <CustomField
-                        control={form.control}
-                        name="users"
-                        formLabel="Users"
-                        className="grid grid-cols-4 col-span-4 items-center gap-4"
-                        render={({ field }) => <Input id="title" {...field} className="col-span-3" placeholder="Users emails separated by comma..." />}
-                      />
-                    </div>
-                  )
-                }
-                {
-                  cardType === 'schedule' ? (
-                    <div className="grid grid-cols-4 items-center gap-4">
-
-                      <CustomField
-                        control={form.control}
-                        name="date"
-                        formLabel="Date"
-                        className="grid grid-cols-4 col-span-4 items-center gap-4"
-                        render={({ field }) => <Input id="title" {...field} className="col-span-3" placeholder="dd/mm/yyyy, HH:MM" />}
-                      />
-                    </div>) : ''
-                }
-              </div>
-
-
             </Tabs>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <CustomField
+                  control={form.control}
+                  name="title"
+                  formLabel="Meeting title"
+                  className="grid grid-cols-4 col-span-4 items-center gap-4"
+                  render={({ field }) => <Input id="title" {...field} className="col-span-3" />}
+                />
+
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <CustomField
+                  control={form.control}
+                  name="duration"
+                  formLabel="Duration (minutes)"
+                  className="grid grid-cols-4 col-span-4 items-center gap-4"
+                  render={({ field }) => <Input id="title" {...field} className="col-span-3" placeholder="Duration in minutes..." />}
+                />
+              </div>
+              {
+                cardType === 'template' ? (
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <FormField
+                      control={form.control}
+                      name="users"
+                      render={({ field }) => (
+                        <FormItem className="grid grid-cols-4 col-span-4  items-center gap-4 my-2">
+                          <FormLabel className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-right">Group</FormLabel>
+                          {/* <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="col-span-3">
+                                <SelectValue placeholder="Select a group to display" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {groups.map((item) => (
+                                <SelectItem key={item._id} value={item.groupName} >{item.groupName}</SelectItem>
+                              ))}
+
+                            </SelectContent>
+                          </Select> */}
+                          <Select className="col-span-3"
+                            options={options}
+                            onChange={(selected) => field.onChange(selected.value)}
+                            defaultValue={options.find((option: any) => option.value === field.value)}
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                ) : (
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <CustomField
+                      control={form.control}
+                      name="users"
+                      formLabel="Users"
+                      className="grid grid-cols-4 col-span-4 items-center gap-4"
+                      render={({ field }) => <Input id="title" {...field} className="col-span-3" placeholder="Users emails separated by comma..." />}
+                    />
+                  </div>
+                )
+              }
+              {
+                cardType === 'schedule' || cardType === 'template' ? (
+                  <div className="grid grid-cols-4 items-center gap-4">
+
+                    <CustomField
+                      control={form.control}
+                      name="date"
+                      formLabel="Date"
+                      className="grid grid-cols-4 col-span-4 items-center gap-4"
+                      render={({ field }) => <Input id="title" {...field} className="col-span-3" placeholder="dd/mm/yyyy, HH:MM" />}
+                    />
+                  </div>) : ''
+              }
+            </div>
+
+
+
             <DialogFooter>
               <DialogClose asChild>
                 <Button type="submit">{isSubmitting ? "Creating Meeting..." : "Create Meeting"}</Button>

@@ -51,6 +51,9 @@ const MeetingSchema = new Schema({
   },
   zoomId: {
     type: String
+  },
+  recording: {
+    type: String
   }
 });
 

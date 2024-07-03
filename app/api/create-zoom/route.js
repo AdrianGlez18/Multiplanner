@@ -23,7 +23,7 @@ export async function POST(req, res) {
     })
 
     console.log(attendees);
-console.log(new Date(data.startDate).toISOString())
+    console.log(new Date(data.startDate).toISOString())
     const response = await fetch("https://api.zoom.us/v2/users/me/meetings", {
       method: "POST",
       headers: {
@@ -38,11 +38,12 @@ console.log(new Date(data.startDate).toISOString())
         duration: data.duration,
         registrants: attendees,
         meeting_invitees: attendees,
-        registrants_confirmation_email: true,
-        registrants_email_notification: true,
         settings: {
-          approval_type: 0, // Automatically send emails
-          registration_type: 1, // Register once and attend any of the occurrences
+          approval_type: 0,
+          registration_type: 1,
+          registrants_confirmation_email: true,
+          registrants_email_notification: true,
+          auto_recording: 'cloud'
         },
       }),
     });
@@ -124,7 +125,7 @@ export async function PUT(req, res) {
     })
     console.log("before fetch zoom")
 
-     const response = await fetch(`https://api.zoom.us/v2/meetings/${data.zoomId}`, {
+    const response = await fetch(`https://api.zoom.us/v2/meetings/${data.zoomId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

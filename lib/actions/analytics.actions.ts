@@ -33,6 +33,8 @@ export async function initializeAnalytics(userId: string) {
 
     let zoomMeetings = 0,
       meetMeetings = 0,
+      zoomRecordings = 0,
+      meetRecordings = 0,
       averageUsers = 0,
       averageUsersMeet = 0,
       averageUsersZoom = 0,
@@ -53,14 +55,18 @@ export async function initializeAnalytics(userId: string) {
         auxDate2 = new Date(currentMeeting.startDate);
         auxZoomDuration += (auxDate1 - auxDate2);
         auxZoomUsers += currentMeeting.members.split(',').length;
+        if (currentMeeting.recording.startsWith('http')) {
+          zoomRecordings++;
+        }
       } else {
         meetMeetings++;
         auxDate1 = new Date(currentMeeting.endDate);
         auxDate2 = new Date(currentMeeting.startDate);
         auxMeetDuration += (auxDate1 - auxDate2);
-        
         auxMeetUsers += currentMeeting.members.split(',').length;
-        
+        if (currentMeeting.recording.startsWith('http')) {
+          meetRecordings++;
+        }
       }
     })
 
@@ -85,17 +91,19 @@ export async function initializeAnalytics(userId: string) {
       averageDuration: averageDuration,
       averageDurationZoom: averageDurationZoom,
       averageDurationMeet: averageDurationMeet,
-      zoomRecordings: 0,
-      meetRecordings: 0
+      zoomRecordings: zoomRecordings,
+      meetRecordings: meetRecordings,
+      lastUpdated: new Date(Date.now())
     }
 
     console.log("CurrentUserAnalytics: ")
     console.log(currentUserAnalytics)
 
     const storedAnalytics = await Analytics.findOneAndUpdate({ authEmail: userId }, currentUserAnalytics, {
-       upsert: true, new: true 
+      upsert: true, new: true
     });
 
+    console.log("StoredAnalytics: ")
     console.log(storedAnalytics)
 
     return JSON.parse(JSON.stringify(storedAnalytics));

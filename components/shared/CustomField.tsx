@@ -9,7 +9,13 @@ import {
   FormLabel,
 } from "../ui/form";
 
-import { formSchema } from './CreateMeetingList'
+export const formSchema = z.object({
+  title: z.string(),
+  date: z.string().optional(),
+  duration: z.string(),
+  users: z.string(),
+  platform: z.string().optional(),
+})
 
 type CustomFieldProps = {
   control: Control<z.infer<typeof formSchema>> | undefined;

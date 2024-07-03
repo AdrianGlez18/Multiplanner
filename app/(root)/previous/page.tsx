@@ -8,6 +8,8 @@ import React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from '@/components/ui/button';
 import { redirect } from 'next/navigation';
+import PreviousMeetingDetails from '@/components/shared/PreviousMeetingDetails';
+import PreviousMeetingCard from '@/components/shared/PreviousMeetingCard';
 
 const PreviousMeetings = async () => {
   const session = await getServerSession(authOptions);
@@ -22,28 +24,28 @@ const PreviousMeetings = async () => {
     let hours = dte.getHours() > 9 ? dte.getHours() : '0' + dte.getHours()
     let minutes = dte.getMinutes() > 9 ? dte.getMinutes() : '0' + dte.getMinutes()
     return (
-      <div key={meet.title} className={`min-h-28 ${meet.platform === 'zoom'? 'bg-blue-700' : 'bg-green-700'} p-4 flex flex-col gap-4 rounded-3xl w-full`}>
+      <div key={meet._id} className={`min-h-28 ${meet.platform === 'zoom'? 'bg-blue-700' : 'bg-green-700'} p-4 flex flex-col gap-4 rounded-3xl w-full`}>
         <h1>{meet.title}</h1>
         <h2>{dte.toDateString() + ', ' + hours + ':' + minutes}</h2>
-        <div className="flex m-3 gap-4 justify-around">
-          <Button>View details</Button>
-          <Button>Cancel</Button>
-        </div>
+         <PreviousMeetingDetails oldMeeting={meet}/>
       </div>
     )
   })
   const googleMeetingList = previousMeetings.filter((meet: any) => meet.platform === 'meet').map((meet: any) => {
+    let dte = new Date(meet.startDate)
+    let hours = dte.getHours() > 9 ? dte.getHours() : '0' + dte.getHours()
+    let minutes = dte.getMinutes() > 9 ? dte.getMinutes() : '0' + dte.getMinutes()
     return (
-      <div key={meet.title} className="h-28 bg-green-700 p-4 flex flex-col gap-4 rounded-3xl w-full">
+      <div key={meet._id} className="min-h-28 bg-green-700 p-4 flex flex-col gap-4 rounded-3xl w-full">
         <h1>{meet.title}</h1>
+        <h2>{dte.toDateString() + ', ' + hours + ':' + minutes}</h2>
+         <PreviousMeetingDetails oldMeeting={meet}/>
       </div>
     )
   })
   const zoomMeetingList = previousMeetings.filter((meet: any) => meet.platform === 'zoom').map((meet: any) => {
     return (
-      <div key={meet.title} className="h-28 bg-blue-700 p-4 flex flex-col gap-4 rounded-3xl w-full">
-        <h1>{meet.title}</h1>
-      </div>
+      <PreviousMeetingCard meet={meet} token={session.zoomAccessToken}/>
     )
   })
 

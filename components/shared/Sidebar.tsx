@@ -56,7 +56,7 @@ const Sidebar = () => {
                                 navLinks.slice(5).map((link) => {
                                     const isActive = link.route === pathname
                                     return (
-                                        <li key={link.route} className={`sidebar-nav_element group ${isActive ? 'bg-purple-gradient text-white' : 'text-gray-700'
+                                        <li key={link.route} className={`sidebar-nav_element group ${isActive ? 'bg-blue-700' : ''
                                             }`}>
                                             <Link className='sidebar-link' href={link.route}>
                                                 <Image src={link.icon} alt='icon' width={24} height={24} className={`${isActive && 'brightness-200'}`} />

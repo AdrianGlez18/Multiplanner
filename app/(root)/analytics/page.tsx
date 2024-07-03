@@ -17,19 +17,23 @@ const Analytics = async () => {
 
   const userEmail: string = session.user?.email!;
 
+  await initializeAnalytics(userEmail);
   let currentAnalytics = await getAnalytics(userEmail);
-  console.log(currentAnalytics)
+  console.log("After getAnalytics(userEmail);")
+  console.log("currentAnalytics", currentAnalytics)
+  console.log("currentAnalytics.lastUpdate")
+  console.log(currentAnalytics.lastUpdated)
 
   const totalMeetings = currentAnalytics.zoomScheduled + currentAnalytics.meetScheduled;
   const meetingsRecorded = currentAnalytics.zoomRecordings + currentAnalytics.meetRecordings;
 
-  if (!currentAnalytics) {
+  /* if (!currentAnalytics) {
     console.log("!current")
     console.log(userEmail)
     await initializeAnalytics(userEmail);
     currentAnalytics = await getAnalytics(userEmail);
     console.log(currentAnalytics)
-  }
+  } */
 
   const meetingsData = {
     labels: ["Zoom", "Google Meet"],
@@ -63,13 +67,14 @@ const Analytics = async () => {
       }
     ]
   }
-
+  const lastUpdatedDate = new Date(currentAnalytics.lastUpdated);
+  const lastUpdated = `${lastUpdatedDate.getUTCDate()}/${lastUpdatedDate.getUTCMonth() +1}/${lastUpdatedDate.getUTCFullYear()}, ${lastUpdatedDate.getUTCHours()}:${lastUpdatedDate.getUTCMinutes()} UTC`
   return (
     <div className='flex flex-col gap-4 w-full px-8 items-center justify-center overflow-hidden'>
       <div className="flex w-full">
         <div className="flex justify-around w-full">
           <h1 className='font-extrabold text-lg xl:text-3xl'>Analytics</h1>
-          {/* <p className='font-extrabold text-md xl:text-xl'>Last update today</p> */}
+          <p className='font-extrabold text-md xl:text-xl'>Last update: {lastUpdated}</p>
         </div>
       </div>
 
@@ -78,8 +83,8 @@ const Analytics = async () => {
           <div className="flex flex-col p-4 gap-4 max-w-[600px] bg-blue-950 rounded-3xl m-8">
             <p className='mx-8 my-4 text-lg xl:text-2xl'>Total meetings: {totalMeetings}</p>
             <p className='mx-8 my-4 text-lg xl:text-2xl'>Meetings recorded: {meetingsRecorded}</p>
-            <p className='mx-8 my-4 text-lg xl:text-2xl'>Last updated: {meetingsRecorded}</p>
-            <Button>Update Analytics</Button>
+            {/* <p className='mx-8 my-4 text-lg xl:text-2xl'>Last updated: {meetingsRecorded}</p>
+            <Button>Update Analytics</Button> */}
           </div>
         </div>
         <div className="flex justify-center gap-4 w-full">

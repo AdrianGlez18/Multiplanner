@@ -36,10 +36,7 @@ export async function POST(req, res) {
           'dateTime': new Date(data.startDate + data.duration * 60 * 1000).toISOString(),
           'timeZone': 'America/Los_Angeles',
         },
-        attendees: attendees,/* [
-                {'email': 'adrianglezhdez18@gmail.com'},
-                {'email': 'adriangh18@gmail.com'},
-              ], */
+        attendees: attendees,
         conferenceData: {
           createRequest: {
             requestId: Math.random().toString(36).slice(2),

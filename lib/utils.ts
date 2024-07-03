@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { deleteMeetingFromDB } from "./actions/meeting.actions";
 /* const { SpacesServiceClient } = require('@google-apps/meet').v2; */
 
 export function cn(...inputs: ClassValue[]) {
@@ -44,10 +45,10 @@ export const createMeeting = async (title: string, people: string, platform: str
       body: JSON.stringify({ title: title, people: people, token: ztoken, gtoken: gtoken, startDate: startDate, duration: duration, platform: platform })
     })
 
-     if (startDate <= Date.now()) {
+    if (startDate <= Date.now()) {
       const resdata = await response.json()
       window.open(resdata.link, '_blank');
-    } 
+    }
   }
 }
 
@@ -155,6 +156,52 @@ export const deleteMeeting = async (oldMeeting: any, gtoken: string, ztoken: str
   }
 }
 
+export const deletePreviousMeeting = async (oldMeeting: any) => {
+
+  const response = await fetch('/api/delete-previous-meeting', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      _id: oldMeeting._id,
+    })
+  })
+  return response;
+}
+
+export const getMeetingRecording = async (oldMeeting: any, ztoken: string) => {
+  if(oldMeeting.platform === 'zoom') {
+    try {
+      const path = process.env.NEXTAUTH_URL
+      const url = `${path}/api/get-recordings`;
+      console.log('Fetching URL:', url);
+  
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          meetingId: oldMeeting.zoomId,
+          ztoken: ztoken,
+        })
+      })
+  
+      if (!response.ok) {
+        throw new Error('Failed to fetch recordings');
+      }
+  
+      const resdata = await response.json()
+      return resdata.link;
+    } catch (error) {
+      console.error('Error while trying to fetch:', error.message); 
+      return ''
+    }
+  }
+  return '';
+}
+
 export const parseInputDateToMiliseconds = (inputDate: string = parseMilisecondsToInputDate(Date.now())) => {
 
   const [datePart, timePart] = inputDate.split(', ');
@@ -186,3 +233,10 @@ export const parseMilisecondsToInputDate = (miliseconds: number) => {
   const date = new Date(miliseconds);
   return date.toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 };
+
+export const filterGroupByName = (groups: any, name: string) => {
+  
+  const group = groups.filter((item: any) => item.groupName === name)[0];
+  console.log(group)
+  return group.groupEmails.join(',');
+}

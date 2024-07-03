@@ -38,6 +38,9 @@ const AnalyticsSchema = new Schema({
   meetRecordings: {
     type: Number,
   },
+  lastUpdated: {
+    type: Date
+  }
 
 });
 
