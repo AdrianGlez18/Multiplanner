@@ -45,7 +45,7 @@ const PreviousMeetings = async () => {
   })
   const zoomMeetingList = previousMeetings.filter((meet: any) => meet.platform === 'zoom').map((meet: any) => {
     return (
-      <PreviousMeetingCard meet={meet} token={session.zoomAccessToken}/>
+      <PreviousMeetingCard meet={meet} token={session.zoomAccessToken} key={meet._id}/>
     )
   })
 
