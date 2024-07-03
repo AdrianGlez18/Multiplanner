@@ -195,7 +195,7 @@ export const getMeetingRecording = async (oldMeeting: any, ztoken: string) => {
       const resdata = await response.json()
       return resdata.link;
     } catch (error) {
-      console.error('Error while trying to fetch:', error.message); 
+      console.error('Error while trying to fetch:', error); 
       return ''
     }
   }
