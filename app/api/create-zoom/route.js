@@ -23,7 +23,7 @@ export async function POST(req, res) {
     })
 
     console.log(attendees);
-
+console.log(new Date(data.startDate).toISOString())
     const response = await fetch("https://api.zoom.us/v2/users/me/meetings", {
       method: "POST",
       headers: {
@@ -34,6 +34,7 @@ export async function POST(req, res) {
         topic: data.title,
         type: 2, // Scheduled meeting
         start_time: new Date(data.startDate).toISOString(),
+        timezone: "Europe/London",
         duration: data.duration,
         registrants: attendees,
         meeting_invitees: attendees,
@@ -133,10 +134,11 @@ export async function PUT(req, res) {
         topic: data.title,
         type: 2,
         start_time: new Date(data.startDate).toISOString(),
+        timezone: "Europe/London",
         duration: data.duration,
         meeting_invitees: attendees,
         registrants_confirmation_email: true,
-        registrants_email_notification: true
+        registrants_email_notification: true,
       }),
     });
 

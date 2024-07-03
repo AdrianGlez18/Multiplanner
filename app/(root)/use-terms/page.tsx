@@ -18,7 +18,8 @@ const PrivacyPolicy = () => {
                     <li className='my-3 text-justify'>Grabaciones de aquellas reuniones planificadas con Multiplanner que el usuario haya realizado manualmente.</li>
                 </ol>
 
-                <p className='my-2 text-justify'>Para cualquier detalle adicional, consultar con admin@aglez.dev. Mediante un email a este correo se puede solicitar la eliminación parcial o total de cualquier dato almacenado del usuario.</p>
+                <p className='my-2 text-justify'>Para cualquier detalle adicional, consultar con admin@aglez.dev. Mediante un email a este correo se puede solicitar la eliminación parcial o total de cualquier dato almacenado del usuario, y se realizará en como máximo 5 días hábiles.</p>
+                <p className='my-2 text-justify'>Al ser un proyecto limitado, no habrá mantenimiento a futuro.</p>
             </div>
         </div>
     )
