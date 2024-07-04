@@ -14,9 +14,6 @@ export async function saveTokensToDatabase(email: any, platform: string, access_
     await connectToDatabase();
 
     const currentUser = await User.findOne({ authEmail: email });
-
-    console.log("Current User: ")
-    console.log(currentUser)
     
     let newUser = {
       authEmail: email,
@@ -26,23 +23,10 @@ export async function saveTokensToDatabase(email: any, platform: string, access_
       zoomRefreshToken: ''
     };
 
-    console.log("Before updating tokens in savetokens")
-    console.log(newUser)
-
     //Verifies if user is signing in or signing up. If latests, creates user in db
     if (currentUser) {
       newUser = await JSON.parse(JSON.stringify(currentUser));
-    } /* else {
-
-      newUser.authEmail = email;
-      newUser.googleAccessToken = '';
-      newUser.googleRefreshToken = '';
-      newUser.zoomAccessToken = '';
-      newUser.zoomRefreshToken = '';
-
-    } */
-
-    
+    } 
 
     //Adds new token to user
     if (platform === 'zoom') {
@@ -52,9 +36,6 @@ export async function saveTokensToDatabase(email: any, platform: string, access_
       newUser.googleAccessToken = access_token;
       newUser.googleRefreshToken = refresh_token;
     }
-
-    console.log("inside saveTokens")
-    console.log(newUser)
 
     //Updates user in db or creates it
     await User.findOneAndUpdate(

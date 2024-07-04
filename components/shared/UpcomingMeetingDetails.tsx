@@ -95,6 +95,10 @@ const UpcomingMeetingDetails = ({ oldMeeting/* title, users, duration, startDate
 
     setIsSubmitting(false)
   }
+  const handleJoin = () => {
+    window.open(oldMeeting.url, '_blank');
+  }
+
   return (
     <div className="flex m-3 gap-4 justify-around">
     <Dialog>
@@ -166,7 +170,10 @@ const UpcomingMeetingDetails = ({ oldMeeting/* title, users, duration, startDate
               />
             </div>
 
+            <div className="flex w-full justify-around my-4">
+              <Button onClick={handleJoin}>Join now</Button>
             <Button type="submit">Update Meeting</Button>
+            </div>
           </form>
         </Form>
       </DialogContent>
