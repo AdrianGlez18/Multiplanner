@@ -49,8 +49,6 @@ const PreviousMeetings = async () => {
     )
   })
 
-  //Añadir la opción de editar y ver detalles
-  //CRUCIAL PRIORITQARIO: QUE SOLO DEJE INICIAR CON MEET
   return (
     <div className='flex flex-col overflow-hidden my-4 md:my-8 lg:my-12 xl:my-20 mx-4 items-center w-full p-2 m-2 gap-8'>
       <h1 className='text-3xl'>Previous Meetings</h1>
