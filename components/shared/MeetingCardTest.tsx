@@ -196,20 +196,7 @@ console.log(groups)
                       render={({ field }) => (
                         <FormItem className="grid grid-cols-4 col-span-4  items-center gap-4 my-2">
                           <FormLabel className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-right">Group</FormLabel>
-                          {/* <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                              <SelectTrigger className="col-span-3">
-                                <SelectValue placeholder="Select a group to display" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {groups.map((item) => (
-                                <SelectItem key={item._id} value={item.groupName} >{item.groupName}</SelectItem>
-                              ))}
-
-                            </SelectContent>
-                          </Select> */}
-                          <Select className="col-span-3"
+                          <Select className="col-span-3 dark:bg-black dark:text-white"
                             options={options}
                             onChange={(selected) => field.onChange(selected.value)}
                             defaultValue={options.find((option: any) => option.value === field.value)}
