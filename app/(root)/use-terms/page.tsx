@@ -4,7 +4,7 @@ const PrivacyPolicy = () => {
     return (
         <div className="flex flex-col w-full items-center justify-center">
             <div className=" min-h-screen  items-center justify-between p-24 w-full max-w-4xl scroll-auto mx-2">
-                <h1 className='my-2 lg:my-4 xl:my-8 p-4 text-lg xl:text-3xl'>Privacy Policy</h1>
+                <h1 className='my-2 lg:my-4 xl:my-8 p-4 text-lg xl:text-3xl'>Términos de uso</h1>
                 <p className='my-2 text-justify'>
                     Esta web es un proyecto universitario realizado únicamente con fines formativos como trabajo de fin de grado para la Universidad de La Laguna. La información almacenada no se utilizará para ningún otro fin distinto al correcto funcionamiento de la aplicación. Ningún dato se compartirá con terceros bajo ninguna circunstancia.
                 </p>

@@ -20,7 +20,7 @@ const UpcomingMeetings = async () => {
   const upcomingMeetings = meetings.filter((meet: any) => Date.parse(meet.endDate) > Date.now())
   const meetingsList = upcomingMeetings.map((meet: any) => {
     let dte = new Date(meet.startDate)
-    let hours = dte.getHours() > 9 ? dte.getHours() : '0' + dte.getHours()
+    let hours = (dte.getHours() + 1) > 9 ? (dte.getHours() + 1) : '0' + (dte.getHours() + 1)
     let minutes = dte.getMinutes() > 9 ? dte.getMinutes() : '0' + dte.getMinutes()
     return (
       <div key={meet.title} className={`min-h-28 ${meet.platform === 'zoom'? 'bg-blue-400 dark:bg-blue-700' : 'bg-green-400 dark:bg-green-700'} p-4 flex flex-col gap-4 rounded-3xl w-full`}>

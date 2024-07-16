@@ -172,7 +172,10 @@ const UpcomingMeetingDetails = ({ oldMeeting/* title, users, duration, startDate
 
             <div className="flex w-full justify-around my-4">
               <Button onClick={handleJoin}>Join now</Button>
-            <Button type="submit">Update Meeting</Button>
+              <DialogClose asChild>
+              <Button type="submit">Update Meeting</Button>
+              </DialogClose>
+
             </div>
           </form>
         </Form>
